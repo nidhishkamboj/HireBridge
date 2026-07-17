@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pathway — Campus Recruitment & Placement Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="app">
+
+    <!-- ============ TOP BAR ============ -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">Pathway</span>
+        <span class="brand-tag">campus placements</span>
+      </div>
+
+      <nav id="roleNav" class="role-nav hidden"></nav>
+
+      <div class="topbar-actions">
+        <button id="apiStatusBtn" class="api-status" title="Configure Gemini API key">
+          <span class="dot dot-off"></span> Gemini key
+        </button>
+        <button id="switchRoleBtn" class="btn btn-ghost hidden">Switch portal</button>
+      </div>
+    </header>
+
+    <!-- ============ ROLE SELECT ============ -->
+    <section id="screen-roleSelect" class="screen">
+      <div class="hero">
+        <p class="eyebrow">A single pipeline, three vantage points</p>
+        <h1>Pathway routes every résumé,<br>interview and offer to the right desk.</h1>
+        <p class="hero-sub">This is a live front-end demo running entirely in your browser — mock data for jobs and
+          students, real Gemini calls for every AI feature. Choose a portal to step into.</p>
+      </div>
+
+      <div class="role-cards">
+        <button class="role-card" data-role="student">
+          <span class="role-card-index">Track applications</span>
+          <h3>Student</h3>
+          <p>Upload a résumé, get an ATS score, find recommended roles, and rehearse interviews with AI feedback.</p>
+          <span class="role-card-cta">Enter as student →</span>
+        </button>
+        <button class="role-card" data-role="recruiter">
+          <span class="role-card-index">Run the funnel</span>
+          <h3>Recruiter</h3>
+          <p>Post roles, review applicants, shortlist, schedule interviews and message candidates.</p>
+          <span class="role-card-cta">Enter as recruiter →</span>
+        </button>
+        <button class="role-card" data-role="admin">
+          <span class="role-card-index">See the whole cohort</span>
+          <h3>Placement Cell</h3>
+          <p>Manage companies, check eligibility in bulk, and watch placement numbers move in real time.</p>
+          <span class="role-card-cta">Enter as admin →</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ STUDENT ONBOARDING ============ -->
+    <section id="screen-studentOnboard" class="screen hidden">
+      <div class="onboard-card">
+        <h2>Set up your student profile</h2>
+        <p class="muted">No account system here — this just personalizes the demo.</p>
+        <form id="studentOnboardForm" class="form-grid">
+          <label>Full name
+            <input type="text" name="name" placeholder="Ananya Rao" required>
+          </label>
+          <label>Department
+            <select name="department" required>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Electronics">Electronics & Comm.</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Data Science">Data Science</option>
+            </select>
+          </label>
+          <label>Graduation year
+            <input type="number" name="gradYear" value="2026" min="2024" max="2028" required>
+          </label>
+          <label>CGPA
+            <input type="number" name="cgpa" step="0.01" min="0" max="10" value="8.20" required>
+          </label>
+          <label>Active backlogs
+            <input type="number" name="backlogs" value="0" min="0" max="10" required>
+          </label>
+          <button type="submit" class="btn btn-primary">Enter student portal</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ RECRUITER ONBOARDING ============ -->
+    <section id="screen-recruiterOnboard" class="screen hidden">
+      <div class="onboard-card">
+        <h2>Set up your recruiter profile</h2>
+        <p class="muted">Pick an existing company or register a new one — placement cell approval is simulated instantly
+          here.</p>
+        <form id="recruiterOnboardForm" class="form-grid">
+          <label>Your name
+            <input type="text" name="name" placeholder="Vikram Shah" required>
+          </label>
+          <label>Company
+            <select name="companyId" id="recruiterCompanySelect"></select>
+          </label>
+          <label class="full-width">— or register a new company —
+            <input type="text" name="newCompany" placeholder="Leave blank to use selection above">
+          </label>
+          <label>Industry (for new company)
+            <input type="text" name="industry" placeholder="e.g. Fintech">
+          </label>
+          <button type="submit" class="btn btn-primary">Enter recruiter portal</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ STUDENT PORTAL ============ -->
+    <section id="screen-student" class="screen hidden portal">
+      <div class="portal-tabs" data-portal="student">
+        <button class="tab-btn active" data-tab="jobs">Jobs</button>
+        <button class="tab-btn" data-tab="resume">Resume &amp; AI</button>
+        <button class="tab-btn" data-tab="applications">My Applications</button>
+        <button class="tab-btn" data-tab="interview">Mock Interview</button>
+      </div>
+
+      <!-- Jobs tab -->
+      <div class="tab-panel active" data-panel="jobs">
+        <div class="panel-head">
+          <h2>Open roles</h2>
+          <div class="panel-head-actions">
+            <label class="check-inline"><input type="checkbox" id="eligibleOnlyToggle" checked> Show only roles I'm
+              eligible for</label>
+          </div>
+        </div>
+        <div id="studentJobList" class="card-grid"></div>
+      </div>
+
+      <!-- Resume & AI tab -->
+      <div class="tab-panel" data-panel="resume">
+        <div class="two-col">
+          <div class="card">
+            <h3>Your résumé</h3>
+            <p class="muted small">Paste your résumé text, or load a .txt file. (PDF parsing is a backend job in
+              production — see the architecture doc.)</p>
+            <textarea id="resumeText" rows="12" placeholder="Paste résumé text here..."></textarea>
+            <div class="row gap">
+              <input type="file" id="resumeFile" accept=".txt">
+              <span id="resumeStatus" class="muted small"></span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>AI résumé tools</h3>
+            <p class="muted small">Uses your Gemini API key. Score against a specific job, or run general checks.</p>
+            <label>Score against job
+              <select id="atsJobSelect">
+                <option value="">— General / no specific job —</option>
+              </select>
+            </label>
+            <div class="ai-btn-row">
+              <button class="btn btn-accent" id="btnAtsScore">Get ATS score</button>
+              <button class="btn btn-secondary" id="btnSkillExtract">Extract skills</button>
+              <button class="btn btn-secondary" id="btnResumeSuggest">Improvement suggestions</button>
+              <button class="btn btn-secondary" id="btnJobRecommend">Recommend jobs for me</button>
+            </div>
+            <div id="aiResumeOutput" class="ai-output"></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Extracted skills</h3>
+          <div id="studentSkillTags" class="tag-row"><span class="muted small">No skills extracted yet.</span></div>
+        </div>
+      </div>
+
+      <!-- Applications tab -->
+      <div class="tab-panel" data-panel="applications">
+        <h2>My applications</h2>
+        <div id="studentApplicationList" class="stack"></div>
+      </div>
+
+      <!-- Mock interview tab -->
+      <div class="tab-panel" data-panel="interview">
+        <div class="two-col">
+          <div class="card">
+            <h3>Start a mock interview</h3>
+            <label>Target role
+              <input type="text" id="mockRole" placeholder="e.g. Backend Engineer Intern">
+            </label>
+            <label>Focus skills (comma separated)
+              <input type="text" id="mockSkills" placeholder="e.g. Python, SQL, System Design">
+            </label>
+            <label>Difficulty
+              <select id="mockDifficulty">
+                <option value="entry-level">Entry-level</option>
+                <option value="intermediate" selected>Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </label>
+            <button class="btn btn-accent" id="btnGenerateQuestions">Generate questions</button>
+          </div>
+          <div class="card">
+            <h3>Session summary</h3>
+            <div id="mockSessionSummary" class="muted small">No session yet — generate questions to begin.</div>
+          </div>
+        </div>
+        <div id="mockQuestionList" class="stack"></div>
+      </div>
+    </section>
+
+    <!-- ============ RECRUITER PORTAL ============ -->
+    <section id="screen-recruiter" class="screen hidden portal">
+      <div class="portal-tabs" data-portal="recruiter">
+        <button class="tab-btn active" data-tab="post">Post a Job</button>
+        <button class="tab-btn" data-tab="jobs">My Jobs &amp; Applicants</button>
+        <button class="tab-btn" data-tab="interviews">Interviews</button>
+        <button class="tab-btn" data-tab="emails">Messages</button>
+        <button class="tab-btn" data-tab="questions">AI Question Bank</button>
+      </div>
+
+      <div class="tab-panel active" data-panel="post">
+        <div class="card">
+          <h2>Post a new role</h2>
+          <form id="jobForm" class="form-grid">
+            <label class="full-width">Job title
+              <input type="text" name="title" placeholder="Software Engineer — New Grad" required>
+            </label>
+            <label class="full-width">Description
+              <textarea name="description" rows="4"
+                placeholder="Role summary, responsibilities, what a strong candidate looks like..." required></textarea>
+            </label>
+            <label class="full-width">Required skills (comma separated)
+              <input type="text" name="skills" placeholder="Python, REST APIs, SQL" required>
+            </label>
+            <label>Minimum CGPA
+              <input type="number" name="minCgpa" step="0.1" value="7.0" required>
+            </label>
+            <label>Max backlogs allowed
+              <input type="number" name="maxBacklogs" value="0" required>
+            </label>
+            <label>Package (LPA)
+              <input type="number" name="package" step="0.1" value="8.0" required>
+            </label>
+            <label>Job type
+              <select name="jobType">
+                <option value="full_time">Full-time</option>
+                <option value="internship">Internship</option>
+                <option value="ppo">Internship + PPO</option>
+              </select>
+            </label>
+            <label class="full-width">Eligible departments (comma separated, blank = all)
+              <input type="text" name="departments" placeholder="Computer Science, Information Technology">
+            </label>
+            <button type="submit" class="btn btn-primary">Publish role</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="jobs">
+        <h2>My postings</h2>
+        <div id="recruiterJobList" class="stack"></div>
+      </div>
+
+      <div class="tab-panel" data-panel="interviews">
+        <h2>Scheduled interviews</h2>
+        <div id="recruiterInterviewList" class="stack"></div>
+      </div>
+
+      <div class="tab-panel" data-panel="emails">
+        <h2>Message log</h2>
+        <p class="muted small">Sending is simulated in this demo (no SMTP wired up) — messages land in this log instead
+          of an inbox.</p>
+        <div id="recruiterEmailLog" class="stack"></div>
+      </div>
+
+      <div class="tab-panel" data-panel="questions">
+        <div class="card">
+          <h3>Generate an interview question set</h3>
+          <label>Role
+            <input type="text" id="recruiterQRole" placeholder="e.g. Data Analyst">
+          </label>
+          <label>Skills (comma separated)
+            <input type="text" id="recruiterQSkills" placeholder="SQL, Excel, Statistics">
+          </label>
+          <button class="btn btn-accent" id="btnRecruiterGenQuestions">Generate</button>
+        </div>
+        <div id="recruiterQuestionOutput" class="stack"></div>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN / PLACEMENT CELL PORTAL ============ -->
+    <section id="screen-admin" class="screen hidden portal">
+      <div class="portal-tabs" data-portal="admin">
+        <button class="tab-btn active" data-tab="reports">Placement Reports</button>
+        <button class="tab-btn" data-tab="companies">Companies</button>
+        <button class="tab-btn" data-tab="students">Students</button>
+        <button class="tab-btn" data-tab="eligibility">Eligibility Checker</button>
+      </div>
+
+      <div class="tab-panel active" data-panel="reports">
+        <div class="stat-row" id="adminStatRow"></div>
+        <div class="chart-grid">
+          <div class="card">
+            <h3>Applications by status</h3><canvas id="chartApplications"></canvas>
+          </div>
+          <div class="card">
+            <h3>Department-wise placements</h3><canvas id="chartDept"></canvas>
+          </div>
+          <div class="card">
+            <h3>Hiring trend (last 6 months)</h3><canvas id="chartTrend"></canvas>
+          </div>
+          <div class="card">
+            <h3>Top skills in demand</h3><canvas id="chartSkills"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="companies">
+        <div class="panel-head">
+          <h2>Companies</h2>
+        </div>
+        <div id="adminCompanyList" class="stack"></div>
+      </div>
+
+      <div class="tab-panel" data-panel="students">
+        <h2>Students</h2>
+        <div class="table-wrap">
+          <table class="data-table" id="adminStudentTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Dept</th>
+                <th>CGPA</th>
+                <th>Backlogs</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="eligibility">
+        <div class="card">
+          <h3>Bulk eligibility checker</h3>
+          <p class="muted small">Pick a posted role, or set custom criteria, and see which students in the cohort
+            qualify.</p>
+          <label>Check against role
+            <select id="eligibilityJobSelect">
+              <option value="">— Custom criteria below —</option>
+            </select>
+          </label>
+          <div class="form-grid">
+            <label>Min CGPA
+              <input type="number" step="0.1" id="eligMinCgpa" value="7.0">
+            </label>
+            <label>Max backlogs
+              <input type="number" id="eligMaxBacklogs" value="0">
+            </label>
+            <label class="full-width">Eligible departments (comma separated, blank = all)
+              <input type="text" id="eligDepartments" placeholder="Computer Science, Information Technology">
+            </label>
+          </div>
+          <button class="btn btn-primary" id="btnRunEligibility">Run check</button>
+        </div>
+        <div id="eligibilityResults" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <!-- ============ SETTINGS MODAL ============ -->
+    <div id="settingsModal" class="modal hidden">
+      <div class="modal-card">
+        <h3>Gemini API key</h3>
+        <p class="muted small">
+          This demo calls the Gemini API <strong>directly from your browser</strong> using the key you paste below.
+          That's fine for trying things out locally, but never ship a real product this way — anyone who views
+          the page source can read the key. In production, route AI calls through your backend instead.
+        </p>
+        <label>API key
+          <input type="password" id="apiKeyInput" placeholder="Paste your Gemini API key">
+        </label>
+        <p class="muted small">Stored only in this browser tab's memory. It's cleared on refresh and never sent anywhere
+          except Google's API.</p>
+        <div class="row gap end">
+          <button class="btn btn-ghost" id="apiKeyCancel">Cancel</button>
+          <button class="btn btn-primary" id="apiKeySave">Save key</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ GENERIC DETAIL MODAL ============ -->
+    <div id="genericModal" class="modal hidden">
+      <div class="modal-card" id="genericModalContent"></div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+  <script src="gemini.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
