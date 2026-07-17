@@ -199,17 +199,17 @@ Track Placement Progress
 
 ## Landing Page
 
-<img src="assets/home.png" width="850">
+<img width="1421" height="832" alt="image" src="https://github.com/user-attachments/assets/4bcc4931-00c9-470d-8868-813cc2913390" />
 
 
 ## Student Dashboard
 
-<img src="assets/dashboard.png" width="850">
+<img width="1396" height="810" alt="image" src="https://github.com/user-attachments/assets/96cd1e58-8522-44e8-8b79-18d484a2a483" />
 
 
-## Resume Analysis
+## Placement Cell
 
-<img src="assets/resume.png" width="850">
+<img width="1415" height="788" alt="image" src="https://github.com/user-attachments/assets/321dd7d0-a566-4461-96ba-22b8631ec4a8" />
 
 
 ---
