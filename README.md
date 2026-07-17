@@ -1,16 +1,17 @@
 # 🚀 HireBridge
-### AI-Powered Campus Recruitment & Placement Platform
+### Campus Recruitment & Placement Management Platform
 
 <p align="center">
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Inter&size=28&duration=3000&pause=1000&color=2563EB&center=true&vCenter=true&width=700&lines=Connecting+Students+%26+Recruiters;Smart+Placement+Management;Resume+Analysis+%26+Career+Preparation;Built+with+Django+%26+Modern+Web+Technologies">
+<img src="https://readme-typing-svg.herokuapp.com?font=Inter&size=28&duration=3000&pause=1000&color=2563EB&center=true&vCenter=true&width=750&lines=Simplifying+Campus+Recruitment;Smart+Placement+Management;Track+Applications+%26+Recruitment+Progress;Connecting+Students+With+Opportunities">
 
 </p>
 
 
 <p align="center">
-  <b>A smart digital ecosystem designed to simplify campus recruitment, 
-  enhance student career preparation, and improve placement management.</b>
+<b>
+A centralized placement management platform that helps students, recruiters, and placement cells efficiently manage recruitment activities, application tracking, and placement insights.
+</b>
 </p>
 
 
@@ -20,78 +21,105 @@
 <img src="https://img.shields.io/badge/Django-Web_Framework-green?style=for-the-badge&logo=django">
 <img src="https://img.shields.io/badge/HTML5-Frontend-orange?style=for-the-badge&logo=html5">
 <img src="https://img.shields.io/badge/CSS3-Styling-blue?style=for-the-badge&logo=css3">
-<img src="https://img.shields.io/badge/API-Integration-purple?style=for-the-badge">
+<img src="https://img.shields.io/badge/Bootstrap-UI-purple?style=for-the-badge&logo=bootstrap">
+<img src="https://img.shields.io/badge/Database-SQLite%20%2F%20MySQL-lightgrey?style=for-the-badge">
 
 </p>
 
 
 ---
 
-# 📌 About The Project
+# 📌 Overview
 
-**HireBridge** is an AI-powered campus recruitment and placement platform that helps students, recruiters, and placement teams manage the complete hiring lifecycle.
+**HireBridge** is a web-based campus recruitment and placement management system designed to streamline the complete hiring workflow between students, recruiters, and placement teams.
 
-The platform focuses on creating a bridge between:
+The platform provides a structured environment where students can track opportunities, recruiters can manage hiring activities, and placement cells can monitor overall recruitment progress.
+
 
 ```
-Students  →  Skills  →  Opportunities  →  Recruiters
+Students
+   |
+   ↓
+Applications
+   |
+   ↓
+Recruiters
+   |
+   ↓
+Selection Process
+   |
+   ↓
+Placement Insights
 ```
-
-It provides tools for resume evaluation, interview preparation, recruitment management, and placement analytics.
 
 
 ---
 
-# ✨ Features
+# ✨ Key Features
 
 
-## 🎓 Student Portal
+## 🎓 Student Management
 
-- Student registration & authentication
+- Student registration and authentication
 - Profile management
-- Resume upload
-- Placement opportunity tracking
-- Interview preparation resources
-- Career improvement suggestions
+- View recruitment opportunities
+- Apply for available positions
+- Track application status
+- Monitor placement progress
 
 
 ---
 
-## 📄 Resume Analysis System
+## 🏢 Recruiter Management
 
-Smart resume evaluation to help students improve their career profiles.
+Recruiters can manage hiring activities through the platform.
 
 Features:
 
-✅ Resume quality assessment  
-✅ Skill identification  
-✅ Resume improvement suggestions  
-✅ ATS-friendly analysis  
+- Recruiter profile management
+- Recruitment drive management
+- Job opportunity handling
+- Candidate application monitoring
+- Selection tracking
 
 
 ---
 
-## 🤖 Interview Preparation
+## 📊 Recruitment Funnel Tracking
 
-Helps students prepare for technical and HR interviews.
+Monitor every stage of the recruitment journey:
+
+```
+Applied
+   ↓
+Shortlisted
+   ↓
+Interview
+   ↓
+Selected / Rejected
+```
+
+Placement teams can analyze:
+
+- Total applications
+- Shortlisted candidates
+- Interview progress
+- Final selections
+
+
+---
+
+## 🏫 Placement Cell Dashboard
+
+A centralized dashboard for placement teams to manage student and recruitment activities.
 
 Includes:
 
-- Interview questions
-- Practice preparation
-- Career guidance support
-
-
----
-
-## 📊 Analytics Dashboard
-
-Provides meaningful insights through:
-
+- Student cohort overview
+- Recruiter information
 - Placement statistics
-- Student performance tracking
-- Recruitment analysis
-- Application monitoring
+- Application tracking
+- Recruitment progress monitoring
 
 
 ---
@@ -100,19 +128,33 @@ Provides meaningful insights through:
 
 
 ```
-                 User
-                  |
-                  |
-            HireBridge Web App
-                  |
-              Django Backend
-                  |
-        ------------------------
-        |                      |
-     Database              APIs
-        |                      |
- Student Data        Resume Processing
- Placement Data      Interview Module
+                 Users
+
+                   |
+
+                   ↓
+
+          HireBridge Web Platform
+
+                   |
+
+             Django Backend
+
+                   |
+
+        ----------------------
+
+        |                    |
+
+    Database            Application Logic
+
+        |                    |
+
+ Student Records     Recruitment Management
+
+ Applications        Placement Tracking
+
+ Recruiters          Analytics Dashboard
 
 ```
 
@@ -122,7 +164,7 @@ Provides meaningful insights through:
 # 🛠️ Technology Stack
 
 
-### Backend
+## Backend
 
 ```
 Python
@@ -131,7 +173,7 @@ REST APIs
 ```
 
 
-### Frontend
+## Frontend
 
 ```
 HTML5
@@ -141,14 +183,14 @@ Bootstrap
 ```
 
 
-### Database
+## Database
 
 ```
 SQLite / MySQL
 ```
 
 
-### Development Tools
+## Tools
 
 ```
 Git
@@ -163,7 +205,7 @@ VS Code
 
 
 ```
-Register Account
+Student Registration
 
         ↓
 
@@ -171,23 +213,27 @@ Create Profile
 
         ↓
 
-Upload Resume
+Explore Opportunities
 
         ↓
 
-Resume Analysis
+Apply For Recruitment Drive
 
         ↓
 
-Prepare For Interviews
+Application Tracking
 
         ↓
 
-Apply For Opportunities
+Recruiter Evaluation
 
         ↓
 
-Track Placement Progress
+Selection Updates
+
+        ↓
+
+Placement Reporting
 
 ```
 
@@ -197,19 +243,25 @@ Track Placement Progress
 # 📸 Screenshots
 
 
-## Landing Page
+## 🌐 Landing Page
 
-<img width="1421" height="832" alt="image" src="https://github.com/user-attachments/assets/4bcc4931-00c9-470d-8868-813cc2913390" />
-
-
-## Student Dashboard
-
-<img width="1396" height="810" alt="image" src="https://github.com/user-attachments/assets/96cd1e58-8522-44e8-8b79-18d484a2a483" />
+<img width="1421" height="832" alt="Landing Page" src="https://github.com/user-attachments/assets/4bcc4931-00c9-470d-8868-813cc2913390" />
 
 
-## Placement Cell
+<br>
 
-<img width="1415" height="788" alt="image" src="https://github.com/user-attachments/assets/321dd7d0-a566-4461-96ba-22b8631ec4a8" />
+
+## 🎓 Student Dashboard
+
+<img width="1396" height="810" alt="Student Dashboard" src="https://github.com/user-attachments/assets/96cd1e58-8522-44e8-8b79-18d484a2a483" />
+
+
+<br>
+
+
+## 🏫 Placement Cell Dashboard
+
+<img width="1415" height="788" alt="Placement Dashboard" src="https://github.com/user-attachments/assets/321dd7d0-a566-4461-96ba-22b8631ec4a8" />
 
 
 ---
@@ -217,42 +269,42 @@ Track Placement Progress
 # 🚀 Installation & Setup
 
 
-### Clone Repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/yourusername/HireBridge.git
 ```
 
 
-### Navigate Project
+## Navigate to Project
 
 ```bash
 cd HireBridge
 ```
 
 
-### Install Dependencies
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
 
-### Run Migration
+## Apply Database Migration
 
 ```bash
 python manage.py migrate
 ```
 
 
-### Start Server
+## Run Development Server
 
 ```bash
 python manage.py runserver
 ```
 
 
-Open:
+Open in browser:
 
 ```
 http://127.0.0.1:8000/
@@ -263,12 +315,12 @@ http://127.0.0.1:8000/
 
 # 🔮 Future Enhancements
 
-- AI chatbot for career assistance
-- Machine learning based job recommendations
-- Video interview analysis
+- Advanced placement analytics
+- Automated email notifications
+- AI-based candidate recommendations
 - Cloud deployment
-- Mobile application
-- Advanced recruiter dashboard
+- Mobile application support
+- Enhanced recruiter dashboard
 
 
 ---
@@ -280,11 +332,13 @@ http://127.0.0.1:8000/
 
 🎓 B.Tech Computer Science Student
 
-Interested in:
+
+### Interests
 
 - Full Stack Development
-- Artificial Intelligence
+- Backend Engineering
 - Data Analytics
+- Web Technologies
 
 
 <p align="center">
@@ -300,12 +354,13 @@ Interested in:
 
 ---
 
-# ⭐ Show Your Support
+# ⭐ Support
 
-If you find this project useful, consider giving it a ⭐ on GitHub.
+If you like this project, consider giving it a ⭐ on GitHub.
+
 
 <p align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=2563EB&height=120&section=footer"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=2563EB&height=120&section=footer">
 
 </p>
